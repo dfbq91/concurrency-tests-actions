@@ -1,0 +1,24 @@
+name: Dev-Branches
+on:
+  push:
+    branches-ignore:
+      - "qa"
+      - "staging"
+      - "master"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  wait-a-minuts:
+    name: wait-a-minuts
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output context things
+        run: echo "${{ github.head_ref }}" "${{ github.workflow }}" "${{ github.ref }}" "${{ github.run_id }}"
+      - name: It is like a build
+        run: |
+          echo "Build has started"
+          sleep 2m
+          echo "Build finished"
